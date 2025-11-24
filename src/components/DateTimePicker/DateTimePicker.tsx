@@ -166,7 +166,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           />
           {!hideHoursAndMinutes && (
             <div
-              className={`bu-absolute bu-right-0 bu-top-[56px] bu-h-[236px] bu-w-[109px] ${
+              className={`bu-absolute bu-top-[56px] bu-h-[236px] bu-w-[109px] ltr:bu-right-0 rtl:bu-left-0 ${
                 startMonthShow ? "bu-hidden" : ""
               }`}>
               <div

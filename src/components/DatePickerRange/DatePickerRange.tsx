@@ -15,7 +15,7 @@ import Popup, { PopupRef } from "../Popup";
 import ArrowUpLine from "../../assets/icons/arrow-up-l-line.svg";
 import SubtractLine from "../../assets/icons/subtract-line.svg";
 import CalendarFill from "../../assets/icons/calendar-fill.svg";
-import { ArrowLine, DatePickerBg, TextDescribe } from "./styles";
+import { ArrowLine, BorderColor, DatePickerBg, TextDescribe } from "./styles";
 import useTheme from "../../provider/useTheme";
 import { loadLocale } from "../../utils/locales";
 
@@ -358,7 +358,9 @@ const DatePickerRange: React.FC<DatePickerRangeProps> = ({
                     <Typography
                       variant="body3"
                       weight="regular"
-                      className={`bu-leading-[20px] ${!date?.to || disabled ? TextDescribe({ theme }) : ""}`}>
+                      className={`bu-leading-[20px] ${
+                        !date?.to || disabled ? TextDescribe({ theme }) : ""
+                      }`}>
                       {date?.to
                         ? formatDate(date.to, "yyyy/MM/dd", undefined, lang)
                         : endPlaceholder}
@@ -384,7 +386,7 @@ const DatePickerRange: React.FC<DatePickerRangeProps> = ({
             <div className="bu-date-picker bu-flex">
               {startMonthShow && (
                 <div
-                  className={`bu-w-[241px] bu-flex-1 bu-border-r  bu-pr-[16px] bu-pt-[16px] ${DatePickerBg(
+                  className={`bu-w-[241px] bu-flex-1 bu-border-r bu-pr-[16px] bu-pt-[16px] rtl:bu-border-l ${BorderColor(
                     { theme }
                   )}`}
                   style={{ height: monthHeight + "px" }}>

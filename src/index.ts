@@ -9,6 +9,7 @@ import DateTimePicker, { DateTimePickerProps } from "./components/DateTimePicker
 import { Dialog, DialogProps } from "./components/Dialog/Dialog";
 import { Divider } from "./components/Divider";
 import { Drawer } from "./components/Drawer";
+g;
 import { Dropdown } from "./components/Dropdown/Dropdown";
 import { LabelTextField } from "./components/LabelTextField";
 import { Pagination } from "./components/Pagination/Pagination";
@@ -55,6 +56,7 @@ import type {
   SortState
 } from "./components/ProTable/types";
 import { SortEnum } from "./components/ProTable/types";
+import { Context as SortContext } from "./components/Sort/reducer";
 
 export {
   Badge,
@@ -89,7 +91,8 @@ export {
   Alert,
   Toast,
   MultiSelect,
-  ProTable
+  ProTable,
+  SortContext
 };
 
 export type {

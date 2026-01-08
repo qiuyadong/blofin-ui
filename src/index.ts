@@ -9,7 +9,6 @@ import DateTimePicker, { DateTimePickerProps } from "./components/DateTimePicker
 import { Dialog, DialogProps } from "./components/Dialog/Dialog";
 import { Divider } from "./components/Divider";
 import { Drawer } from "./components/Drawer";
-g;
 import { Dropdown } from "./components/Dropdown/Dropdown";
 import { LabelTextField } from "./components/LabelTextField";
 import { Pagination } from "./components/Pagination/Pagination";
@@ -19,6 +18,7 @@ import { Select } from "./components/Select";
 import { Slider } from "./components/Slider";
 import SortButton, { TextAlign } from "./components/Sort/SortButton";
 import SortGroup from "./components/Sort/SortGroup";
+import { SortContext, SortsData } from "./components/Sort";
 import { Switch } from "./components/Switch/Switch";
 import { Tab, TabRef } from "./components/Tab/Tab";
 import Table, { TableColumnProps } from "./components/Table";
@@ -42,7 +42,6 @@ import { ThemeProvider } from "./provider/ThemeProvider";
 import useTheme from "./provider/useTheme";
 import "./scss/base.scss";
 import { BUIComponentColor, BUIComponentSize, BUITheme } from "./types/component";
-import { SortsData } from "./components/Sort/reducer";
 import { Placement } from "@popperjs/core";
 import { InputBaseProps } from "./components/TextField/TextField";
 import { Alert } from "./components/Alert/index";
@@ -56,7 +55,6 @@ import type {
   SortState
 } from "./components/ProTable/types";
 import { SortEnum } from "./components/ProTable/types";
-import { Context as SortContext } from "./components/Sort/reducer";
 
 export {
   Badge,

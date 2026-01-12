@@ -30,6 +30,7 @@ export type DateTimePickerProps = {
   minuteInterval?: number;
   hidePast?: boolean;
   hideHoursAndMinutes?: boolean;
+  monthPickerClassName?: string;
 };
 
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
@@ -46,7 +47,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   submitText = "Ok",
   minuteInterval = 1,
   hidePast = true,
-  hideHoursAndMinutes = false
+  hideHoursAndMinutes = false,
+  monthPickerClassName = ""
 }) => {
   const {
     date,
@@ -117,7 +119,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
             <div
               className={`bu-w-[333px] bu-flex-1 bu-pr-[16px] bu-pt-[16px] ${DatePickerBg({
                 theme
-              })}`}
+              })} ${monthPickerClassName}`}
               style={{ height: monthHeight + "px" }}>
               <div
                 className="bu-flex bu-h-[40px] bu-cursor-pointer bu-items-center bu-gap-[4px] bu-py-[8px]"

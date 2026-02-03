@@ -85,6 +85,7 @@ export const Button = ({
     checked
   };
 
+
   return (
     <button
       type="button"
@@ -96,7 +97,7 @@ export const Button = ({
         loadingType === "refresh" ? (
           <IconRefresh className={cn(refreshIconStyles({ size }))} />
         ) : (
-          <Loading size={size} theme={theme} />
+          <Loading size={size} theme={buttonProps.theme} />
         )
       ) : (
         <>
@@ -144,9 +145,8 @@ const WhiteButton: FC<ButtonProps> = (props) => {
     <Button
       {...props}
       variant="ghost"
-      className={`bu-border-light-background bu-text-light-background ${
-        theme === "light" ? "hover:!bu-text-light-primary" : "hover:!bu-text-dark-primary"
-      }  bu-font-medium hover:!bu-bg-light-background`}></Button>
+      className={`bu-border-light-background bu-text-light-background ${theme === "light" ? "hover:!bu-text-light-primary" : "hover:!bu-text-dark-primary"
+        }  bu-font-medium hover:!bu-bg-light-background`}></Button>
   );
 };
 

@@ -10,11 +10,11 @@
 }
 
 .loader-light {
-  color: rgba(10, 10, 10, 0.4);
+  @apply bu-text-light-label-40;
 }
 
 .loader-dark {
-  @apply bu-text-dark-label-20;
+  @apply bu-text-dark-label-40;
 }
 
 @keyframes animloader-medium {

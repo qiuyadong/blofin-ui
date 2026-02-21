@@ -5,8 +5,6 @@ import { usePopper } from "react-popper";
 import useClient from "../../hooks/useClient";
 import useDelayEvent from "../../hooks/useDelayEvent";
 import useOutsideClick from "../../hooks/useOutsideClick";
-import popoverStyles from "./popover.module.scss";
-
 export interface PopoverProps {
   label: string | React.ReactNode;
   content: React.ReactNode;
@@ -136,10 +134,10 @@ const Popover = forwardRef<PopoverRefProps, PopoverProps>((props, ref) => {
             ref={popoverElement}
             style={styles.popper}
             {...attributes.popper}
-            className={`${popoverStyles["popover-content"]} ${
+            className={`bu-z-[9999] bu-shadow bu-rounded-[4px] bu-transition-[opacity,visibility] bu-duration-[120ms] bu-ease-in-out ${
               showPopover
-                ? popoverStyles["popover-content-visible"]
-                : popoverStyles["popover-content-hidden"]
+                ? "bu-visible bu-pointer-events-auto bu-opacity-[1]"
+                : "bu-invisible bu-pointer-events-none bu-opacity-0"
             } ${contentClassName}`}>
             {content}
           </div>,

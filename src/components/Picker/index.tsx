@@ -41,7 +41,7 @@ const Picker = ({ list, selectedValue, setValue }: PickerProps) => {
       );
     }
     return result;
-  }, [list, selected]);
+  }, [list, selected, theme]);
 
   useEffect(() => {
     setValue(selected);

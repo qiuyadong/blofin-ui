@@ -306,7 +306,7 @@ const DatePickerRange: React.FC<DatePickerRangeProps> = ({
           <div
             id="date"
             className={`bu-flex bu-h-[40px] bu-w-[260px] bu-cursor-pointer bu-items-center bu-justify-between bu-rounded-[8px] bu-border bu-p-[8px] ${DatePickerBg(
-              { theme }
+              { theme, hover: theme }
             )} ${dateClassName}`}>
             {mode === "simple" ? (
               date?.from ? (
@@ -386,7 +386,7 @@ const DatePickerRange: React.FC<DatePickerRangeProps> = ({
             <div className="bu-date-picker bu-flex">
               {startMonthShow && (
                 <div
-                  className={`bu-w-[241px] bu-flex-1 bu-border-r bu-pr-[16px] bu-pt-[16px] rtl:bu-border-l ${BorderColor(
+                  className={`bu-w-[241px] bu-flex-1 ltr:bu-border-r rtl:bu-border-l ltr:bu-pr-[16px] rtl:bu-pl-[16px] bu-pt-[16px] ${BorderColor(
                     { theme }
                   )}`}
                   style={{ height: monthHeight + "px" }}>
@@ -443,7 +443,7 @@ const DatePickerRange: React.FC<DatePickerRangeProps> = ({
               </div>
               {endMonthShow && (
                 <div
-                  className="bu-w-[240px] bu-flex-1 bu-pl-[16px] bu-pt-[16px]"
+                  className="bu-w-[240px] bu-flex-1 ltr:bu-pl-[16px] rtl:bu-pr-[16px] bu-pt-[16px]"
                   style={{ height: monthHeight + "px" }}>
                   <div
                     className="bu-flex bu-h-[40px] bu-cursor-pointer bu-items-center bu-gap-[4px] bu-py-[8px]"

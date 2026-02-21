@@ -18,6 +18,7 @@ import { Select } from "./components/Select";
 import { Slider } from "./components/Slider";
 import SortButton, { TextAlign } from "./components/Sort/SortButton";
 import SortGroup from "./components/Sort/SortGroup";
+import { SortContext, SortsData } from "./components/Sort";
 import { Switch } from "./components/Switch/Switch";
 import { Tab, TabRef } from "./components/Tab/Tab";
 import Table, { TableColumnProps } from "./components/Table";
@@ -41,7 +42,6 @@ import { ThemeProvider, Direction } from "./provider/ThemeProvider";
 import useTheme from "./provider/useTheme";
 import "./scss/base.scss";
 import { BUIComponentColor, BUIComponentSize, BUITheme } from "./types/component";
-import { SortsData } from "./components/Sort/reducer";
 import { Placement } from "@popperjs/core";
 import { InputBaseProps } from "./components/TextField/TextField";
 import { Alert } from "./components/Alert/index";
@@ -89,7 +89,8 @@ export {
   Alert,
   Toast,
   MultiSelect,
-  ProTable
+  ProTable,
+  SortContext
 };
 
 export type {

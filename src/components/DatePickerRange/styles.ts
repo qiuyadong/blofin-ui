@@ -21,9 +21,12 @@ export const TextDescribe = cva("", {
 export const DatePickerBg = cva("", {
   variants: {
     theme: {
-      light:
-        "bu-border-light-line-secondary bu-bg-light-background hover:bu-bg-light-fill-secondary",
-      dark: "bu-border-dark-line-secondary bu-bg-dark-background hover:bu-bg-dark-fill-secondary"
+      light: "bu-border-light-line-secondary bu-bg-light-background",
+      dark: "bu-border-dark-line-secondary bu-bg-dark-background"
+    },
+    hover: {
+      light: "hover:bu-bg-light-fill-secondary",
+      dark: "hover:bu-bg-dark-fill-secondary"
     }
   }
 });

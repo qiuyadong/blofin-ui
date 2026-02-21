@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ThemeProvider } from "../provider/ThemeProvider";
 import { NoticeProvider } from "../provider/NoticeProvider";
 import { Button } from "../components/Button/Button";
@@ -19,8 +19,23 @@ import { Divider } from "../components/Divider";
 import TextArea from "../components/Textarea";
 import DatePickerRange, { DateValue } from "../components/DatePickerRange/DatePickerRange";
 import DateTimePicker from "../components/DateTimePicker/DateTimePicker";
+import { Dialog } from "../components/Dialog/Dialog";
+import { Drawer } from "../components/Drawer/Drawer";
+import { Dropdown } from "../components/Dropdown/Dropdown";
+import { TextSelect } from "../components/TextSelect/TextSelect";
+import MultiSelect from "../components/MultiSelect/MultiSelect";
+import Table, { TableColumnProps } from "../components/Table";
+import ProTable from "../components/ProTable/ProTable";
+import { Popover } from "../components/Popover/Popover";
+import { CssDropdown } from "../components/CssDropdown/CssDropdown";
+import { LabelTextField } from "../components/LabelTextField";
+import Sortable from "../components/Sortable";
+import SortItem from "../components/Sortable/SortItem";
+import Popup from "../components/Popup";
 import addDays from "date-fns/addDays";
 import useMode from "../hooks/useMode";
+import useNotification from "../hooks/useNotification";
+import useToast from "../hooks/useToast";
 
 const meta: Meta = {
   title: "Test/完整的 RTL 组件测试",
@@ -81,6 +96,66 @@ export const CompleteTest = {
     };
     const [dateRange, setDateRange] = useState<DateValue>(initDateRange());
     const [dateTime, setDateTime] = useState<number | undefined>(new Date().getTime());
+
+    // Portal / Overlay 组件
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    // Select 类组件
+    const [textSelectValue, setTextSelectValue] = useState("market");
+    const [multiValues, setMultiValues] = useState<string[]>([]);
+
+    const { methods: notification } = useNotification();
+    const { methods: toast } = useToast();
+
+    const [sortableItems, setSortableItems] = useState(["BTC", "ETH", "SOL", "XRP"]);
+
+    const dropdownMenus = useMemo(
+      () => [
+        { key: "1", label: <div className="bu-px-[12px] bu-py-[6px]">菜单 1</div> },
+        { key: "2", label: <div className="bu-px-[12px] bu-py-[6px]">菜单 2</div> },
+        { key: "3", label: <div className="bu-px-[12px] bu-py-[6px]">菜单 3</div> }
+      ],
+      []
+    );
+
+    const textSelectOptions = useMemo(
+      () => [
+        { label: "市价", value: "market" },
+        { label: "最新价", value: "limit" },
+        { label: "标记价", value: "mark" }
+      ],
+      []
+    );
+
+    const multiSelectOptions = useMemo(
+      () => [
+        { label: "BTCUSDT", value: "BTC-USDT" },
+        { label: "ETHUSDT", value: "ETH-USDT" },
+        { label: "SOLUSDT", value: "SOL-USDT" },
+        { label: "XRPUSDT", value: "XRP-USDT" }
+      ],
+      []
+    );
+
+    type Row = { id: number; name: string; email: string; amount: number };
+    const tableColumns = useMemo<TableColumnProps<Row>[]>(
+      () => [
+        { key: "id", title: "ID", width: "80px", fixed: "left", align: "flex-start", filter: true },
+        { key: "name", title: "Name", width: "160px", align: "flex-start" },
+        { key: "email", title: "Email", width: "220px", align: "flex-start" },
+        { key: "amount", title: "Amount", width: "120px", align: "flex-end", fixed: "right", filter: true }
+      ],
+      []
+    );
+    const tableData = useMemo<Row[]>(
+      () => [
+        { id: 1, name: "Alice", email: "alice@example.com", amount: 1234.56 },
+        { id: 2, name: "Bob", email: "bob@example.com", amount: 9876.54 },
+        { id: 3, name: "Carol", email: "carol@example.com", amount: 100.01 }
+      ],
+      []
+    );
 
     return (
       <ThemeProvider value={{ theme: mode, direction }}>
@@ -447,6 +522,186 @@ export const CompleteTest = {
                     <Typography variant="body1">正文 1 / Body 1</Typography>
                     <Typography variant="body2">正文 2 / Body 2</Typography>
                   </div>
+                </div>
+              </section>
+
+              {/* 7. Portal / Overlay 组件（重点测试 RTL 下定位与间距） */}
+              <section style={{ marginBottom: "40px" }}>
+                <Typography variant="h2">7. Portal / Overlay 组件</Typography>
+                <Divider direction="horizontal" />
+                <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "center" }}>
+                    <Popover
+                      label={<Button variant="secondary" size="small">Popover</Button>}
+                      content={<div className="bu-p-[12px]">Popover 内容</div>}
+                      placement="bottom-start"
+                    />
+                    <Dropdown menus={dropdownMenus} variant="line">
+                      Dropdown
+                    </Dropdown>
+                    <CssDropdown
+                      label={<Button variant="secondary" size="small">CssDropdown</Button>}
+                      content={<div className="bu-w-[220px]">CssDropdown 内容（focus 打开）</div>}
+                    />
+                    <Tooltip placement="topLeft" content="Tooltip topLeft">
+                      <Button variant="secondary" size="small">Tooltip</Button>
+                    </Tooltip>
+                    <Popup
+                      title={<Button variant="secondary" size="small">Popup</Button>}
+                      content={<div className="bu-p-[12px]">Popup 内容（自动贴边/对齐测试）</div>}
+                    />
+                  </div>
+
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
+                    <div style={{ width: 260 }}>
+                      <h4>TextSelect</h4>
+                      <TextSelect
+                        options={textSelectOptions}
+                        defaultValue={textSelectValue}
+                        onChange={(v) => setTextSelectValue(v)}
+                        placeholder="请选择"
+                      />
+                    </div>
+                    <div style={{ width: 320 }}>
+                      <h4>MultiSelect</h4>
+                      <MultiSelect
+                        options={multiSelectOptions}
+                        values={multiValues}
+                        onChange={(vals) => setMultiValues(vals)}
+                        placeholder="选择多个"
+                        className="bu-w-full"
+                      />
+                    </div>
+                    <div style={{ width: 320 }}>
+                      <h4>LabelTextField</h4>
+                      <LabelTextField
+                        label="LabelTextField"
+                        variant="outlined"
+                        placeholder="输入内容"
+                        startAdornment="$"
+                        endAdornment="USD"
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                    <Button variant="primary" size="small" onClick={() => setDialogOpen(true)}>
+                      打开 Dialog
+                    </Button>
+                    <Button variant="primary" size="small" onClick={() => setDrawerOpen(true)}>
+                      打开 Drawer
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="small"
+                      onClick={() =>
+                        notification.info({
+                          title: "通知 Notification",
+                          msg: "这是一个通知，用于测试 RTL 下的进入动画与布局。",
+                          position: "leftBottom"
+                        })
+                      }>
+                      通知(LeftBottom)
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="small"
+                      onClick={() =>
+                        notification.success({
+                          title: "Success",
+                          msg: "这是一个右侧通知。",
+                          position: "rightTop"
+                        })
+                      }>
+                      通知(RightTop)
+                    </Button>
+                    <Button variant="ghost" size="small" onClick={() => toast.info("Toast: Hello RTL")}>
+                      Toast
+                    </Button>
+                  </div>
+
+                  <Dialog
+                    open={dialogOpen}
+                    title="Dialog 标题"
+                    content="Dialog 内容，用于测试关闭按钮、按钮间距与 RTL 对齐。"
+                    cancelText="取消"
+                    confirmText="确认"
+                    size="medium"
+                    cancel={() => setDialogOpen(false)}
+                    confirm={() => setDialogOpen(false)}
+                  />
+                  <Drawer
+                    open={drawerOpen}
+                    title="Drawer 标题"
+                    drawerContentClass="bu-w-[360px]"
+                    placement="right"
+                    cancel={() => setDrawerOpen(false)}
+                    content={<div className="bu-h-[200px]">Drawer 内容</div>}
+                  />
+                </div>
+              </section>
+
+              {/* 8. 表格组件（重点测试固定列、排序图标间距等 RTL） */}
+              <section style={{ marginBottom: "40px" }}>
+                <Typography variant="h2">8. 表格组件 (Table)</Typography>
+                <Divider direction="horizontal" />
+                <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "20px" }}>
+                  <div>
+                    <h4>Table</h4>
+                    <div style={{ height: 280 }}>
+                      <Table
+                        columns={tableColumns}
+                        data={tableData}
+                        scroll
+                        hideShadow
+                        rowKey="id"
+                        customPagination={true}
+                        drag={false}
+                        type="single"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <h4>ProTable</h4>
+                    <ProTable
+                      columns={[
+                        { key: "name", title: "Name", width: "160px", align: "flex-start" },
+                        { key: "email", title: "Email", width: "220px", align: "flex-start" },
+                        { key: "amount", title: "Amount", width: "120px", align: "flex-end", filter: true, type: "single" }
+                      ]}
+                      data={tableData}
+                      rowKey="id"
+                      tableLayout="fixed"
+                      maxHeight="280px"
+                    />
+                  </div>
+                </div>
+              </section>
+
+              {/* 9. 可拖拽排序组件 */}
+              <section style={{ marginBottom: "40px" }}>
+                <Typography variant="h2">9. Sortable（拖拽排序）</Typography>
+                <Divider direction="horizontal" />
+                <div style={{ marginTop: "20px" }}>
+                  <Sortable
+                    direction="horizontal"
+                    moveEnd={(prev, next) => {
+                      setSortableItems((list) => {
+                        const nextList = [...list];
+                        const [moved] = nextList.splice(prev, 1);
+                        nextList.splice(next, 0, moved);
+                        return nextList;
+                      });
+                    }}
+                    customHandle=".sortable-handle">
+                    {sortableItems.map((item) => (
+                      <SortItem key={item}>
+                        <div className="sortable-handle ltr:bu-mr-[8px] rtl:bu-ml-[8px] bu-inline-flex bu-cursor-grab bu-items-center bu-rounded-[6px] bu-border bu-px-[12px] bu-py-[8px]">
+                          {item}
+                        </div>
+                      </SortItem>
+                    ))}
+                  </Sortable>
                 </div>
               </section>
 

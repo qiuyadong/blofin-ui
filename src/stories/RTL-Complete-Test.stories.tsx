@@ -709,7 +709,7 @@ export const CompleteTest = {
               <section>
                 <Alert
                   type="success"
-                  content={`✅ 测试完成！已展示 ${
+                  content={`测试完成！已展示 ${
                     direction === "ltr" ? "15+" : "15+"
                   } 个组件。点击顶部按钮切换 LTR/RTL 模式查看效果。`}
                 />
@@ -720,18 +720,88 @@ export const CompleteTest = {
                     background: "#f5f5f5",
                     borderRadius: "8px"
                   }}>
-                  <h3>📋 RTL 测试检查清单：</h3>
+                  <h3>RTL 测试检查清单：</h3>
                   <ul style={{ lineHeight: "1.8" }}>
-                    <li>✓ 文本对齐方向 (Text alignment)</li>
-                    <li>✓ 输入框光标位置 (Input cursor position)</li>
-                    <li>✓ 按钮组排列顺序 (Button group order)</li>
-                    <li>✓ 下拉菜单展开方向 (Dropdown direction)</li>
-                    <li>✓ 图标和文本位置 (Icon and text position)</li>
-                    <li>✓ Tooltip 弹出位置 (Tooltip popup position)</li>
-                    <li>✓ 分页组件方向 (Pagination direction)</li>
-                    <li>✓ Tab 标签排列 (Tab order)</li>
-                    <li>✓ Checkbox/Radio 标签位置 (Label position)</li>
-                    <li>✓ 间距镜像 (Margin/Padding mirror)</li>
+                    <li>
+                      <strong>全局方向</strong>
+                      <ul>
+                        <li>切换方向后：<code>html[dir]</code> 与 <code>ThemeProvider.direction</code> 一致</li>
+                        <li>同一页面多次切换不会残留旧样式（尤其是 Portal/弹层）</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>文本与排版</strong>
+                      <ul>
+                        <li>文字对齐（left/right/start/end）在 RTL 下符合预期</li>
+                        <li>数字/符号/省略号（ellipsis）展示正常，不出现截断方向错误</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>间距与镜像</strong>
+                      <ul>
+                        <li>margin/padding（尤其是图标前后间距）在 RTL 下镜像正确</li>
+                        <li>border-left/right、圆角（例如角标/角按钮）在 RTL 下镜像正确</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>输入类组件</strong>
+                      <ul>
+                        <li>TextField/TextArea：光标起始位置、选中文本高亮、placeholder 对齐正确</li>
+                        <li>Adornment（start/end）：起始/结束装饰物位置与间距在 RTL 下正确</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>选择类组件</strong>
+                      <ul>
+                        <li>Select/TextSelect/MultiSelect：下拉层对齐“起始侧”，宽度与输入框一致</li>
+                        <li>下拉层在视口边缘会自动避让（不被裁剪、不抖动）</li>
+                        <li>搜索框/图标间距在 RTL 下正确</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>提示与浮层（Popper/Portal）</strong>
+                      <ul>
+                        <li>Tooltip/Popover：placement 的视觉语义正确（例如 topLeft/topRight）</li>
+                        <li>箭头方向与位置正确；flip 后仍正确；z-index 不被遮挡</li>
+                        <li>滚动容器/页面滚动时位置更新正确</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>弹窗与抽屉</strong>
+                      <ul>
+                        <li>Dialog：关闭按钮在 RTL 下位于起始侧；footer 按钮间距/顺序符合预期</li>
+                        <li>Drawer：left/right 出入场方向正确；关闭按钮位置正确</li>
+                        <li>mask 点击关闭与关闭回调正常</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>导航与控制</strong>
+                      <ul>
+                        <li>Tab：标签间距与顺序符合 RTL 预期</li>
+                        <li>Pagination：前进/后退方向正确；箭头/按钮排列正确</li>
+                        <li>Slider：拖动方向、数值变化方向在 RTL 下正确</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>表格</strong>
+                      <ul>
+                        <li>Table/ProTable：固定列 left/right 在 RTL 下表现符合预期（吸附、阴影边界）</li>
+                        <li>排序图标与表头文案间距在 RTL 下正确</li>
+                        <li>横向滚动时固定列遮罩/阴影方向正确</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>拖拽排序</strong>
+                      <ul>
+                        <li>Sortable：拖拽手柄可用；拖拽后顺序正确；RTL 下不会出现点击区域偏移</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>通知与轻提示</strong>
+                      <ul>
+                        <li>Notification/Toast：进入/退出动画方向正确；内容布局在 RTL 下正确</li>
+                      </ul>
+                    </li>
                   </ul>
                 </div>
               </section>

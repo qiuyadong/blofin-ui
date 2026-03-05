@@ -78,6 +78,14 @@ const Content: FC<ContentProps> = ({
     }
   }, [enter, isShow]);
 
+  const hasTitle = !!title;
+  const hasContent =
+    typeof content === "string" ? content.trim().length > 0 : !!content;
+
+  if (!hasTitle && !hasContent) {
+    return null;
+  }
+
   return ReactDOM.createPortal(
     <div
       ref={targetRef}
@@ -88,15 +96,17 @@ const Content: FC<ContentProps> = ({
       })} ${className || ""}`}
       style={styles.popper}
       {...attributes.popper}>
-      {title && <span className={toolTipStyles.title}>{title}</span>}
-      {title && content && <div className={toolTipStyles.line}></div>}
-      {content ? (
-        typeof content === "string" ? (
+      {hasTitle && <span className={toolTipStyles.title}>{title}</span>}
+      {hasTitle && hasContent && <div className={toolTipStyles.line}></div>}
+      {hasContent
+        ? typeof content === "string"
+          ? (
           <span className={toolTipStyles.content}>{content}</span>
-        ) : (
-          content
-        )
-      ) : null}
+            )
+          : (
+              content
+            )
+        : null}
       {!hideArrow && state && (
         <div
           className={arrowPositionStyles({

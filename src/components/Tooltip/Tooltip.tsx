@@ -93,7 +93,7 @@ const Content: FC<ContentProps> = ({
         show: enter || isShow
       })} ${bgStyles({
         theme
-      })} ${className || ""}`}
+      })} ${typeof content === "string" ? "bu-leading-[18px]" : ""} ${className || ""}`}
       style={styles.popper}
       {...attributes.popper}>
       {hasTitle && <span className={toolTipStyles.title}>{title}</span>}

@@ -6,9 +6,9 @@
 
 ![cover](./src/assets/cover.png)
 
-![NPM](https://img.shields.io/npm/l/blofin-ui)
-![npm](https://img.shields.io/npm/v/blofin-ui)
-![npm](https://img.shields.io/npm/dt/blofin-ui)
+![NPM](https://img.shields.io/npm/l/@blofin/blofin-ui)
+![npm](https://img.shields.io/npm/v/@blofin/blofin-ui)
+![npm](https://img.shields.io/npm/dt/@blofin/blofin-ui)
 
 **UI library for crypto exchanges.**
 
@@ -25,21 +25,21 @@ With our UI library, you can confidently offer your users a truly elevated and r
 **NPM**
 
 ```bash
-npm install blofin-ui
+npm install @blofin/blofin-ui
 ```
 
 **Yarn**
 
 ```bash
-yarn add blofin-ui
+yarn add @blofin/blofin-ui
 ```
 
 ## Usage
 
 ```jsx
 import "src/styles/globals.css";
-import { BlofinUiProvider } from "blofin-ui";
-import { Button } from "blofin-ui";
+import { BlofinUiProvider } from "@blofin/blofin-ui";
+import { Button } from "@blofin/blofin-ui";
 
 <BlofinUiProvider value={{ theme: "light" }}>
   <Component {...pageProps}></Component>
@@ -48,7 +48,7 @@ import { Button } from "blofin-ui";
 
 ```css
 /** global.css */
-@import "blofin-ui/blofin.css";
+@import "@blofin/blofin-ui/blofin.css";
 @import "./tailwind.css";
 
 /** tailwind.css */
